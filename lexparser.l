@@ -43,7 +43,6 @@ int yyerror(const char* s);
 [ ]*             ;
 [\t]+              ;
 
-
 \n          return NEXT;
 \0        	   ;
 .           { yyerror("Incorrect symbol!"); } 

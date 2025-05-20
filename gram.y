@@ -74,7 +74,7 @@ b_poly* search_polynom_in_list(char* variable);
 }
 
 
-%token PLUS MINUS MULTI POW EQUAL OY PRINT NEXT
+%token PLUS MINUS MULTI POW EQUAL OY PRINT NEXT FINISH
 
 %token OPENC CLOSEC      // ADD ( ) !
 
@@ -146,7 +146,7 @@ peremen:
 termmonom:
             termmonom sign monom
             {
-                //printf("%d\n", $2);
+                
                 // if ($2 == "-")
                 //     $3->coef[$3->capacity - 1] = - $3->coef[$3->capacity - 1];
                 //printf("()()\n");
@@ -158,12 +158,14 @@ termmonom:
             | sign monom
             {
                 //printf("!()!(!)(!)!!()\n");
+                //printf("%d\n", $1);
                 $$ = $2;
                 //($1 == "+") ? $$->fb_sign = 1 : $$->fb_sign = 2;
                 if ($1 == 2) {
                     fprintf(report, ">>termmonom: sign monom\n");
-                    $$->coef[$2->capacity] = 0 - ($$->coef[$2->capacity]);
-                    fprintf(report, "sign coef = %d\n", $$->coef[$2->capacity]);
+                    //printf("--%d\n", $2->capacity);
+                    $$->coef[$2->capacity - 1] = 0 - ($$->coef[$2->capacity - 1]);
+                    fprintf(report, "sign coef = %d\n", $$->coef[$2->capacity - 1]);
                 }
             }
 
@@ -501,7 +503,7 @@ b_poly* multi_poly_to_poly(b_poly* firstP, b_poly* secondP){
             
             if ((firstP->coef[i] != 0) && (secondP->coef[j] != 0)){
                 int count_coef = firstP->coef[i] * secondP->coef[j];
-                printf("))%d\n", count_coef);
+                //printf("))%d\n", count_coef);
                 int count_pow = i + j;
                 
                 thirdP->coef[count_pow] = count_coef;

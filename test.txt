@@ -1,1 +1,20 @@
->> (2^(-1))
+
+>> !A = 2x^(3+12)+2+3 # comment
+>> A + x^4 # comment A + 12
+
+>> 12-10+(2z^(3*2))
+
+
+>> x+6-(x^(2-2) + xxxxxx) 
+
+# !B = 777xxxxxxxxxx
+
+
+>> x^2 
+x + 13 - 1
+x^4
+!AA = 7xxxxxxx
+AA
+>> AA
+>> a-a
+>> (AA)^2

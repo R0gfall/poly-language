@@ -861,22 +861,22 @@ YY_RULE_SETUP
 case 16:
 /* rule 16 can match eol */
 YY_RULE_SETUP
-#line 47 "lexparser.l"
+#line 46 "lexparser.l"
 return NEXT;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 48 "lexparser.l"
+#line 47 "lexparser.l"
 ;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 49 "lexparser.l"
+#line 48 "lexparser.l"
 { yyerror("Incorrect symbol!"); } 
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 52 "lexparser.l"
+#line 51 "lexparser.l"
 ECHO;
 	YY_BREAK
 #line 882 "lex.yy.c"
@@ -1896,7 +1896,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 52 "lexparser.l"
+#line 51 "lexparser.l"
 
 
 /*

@@ -59,6 +59,8 @@ int main(){
     output = fopen("out.txt", "w");
     report = fopen("report.txt", "w");
     
+
+    
     yyparse();
     //printf("result = %d\n", result);
     fclose(yyin);
