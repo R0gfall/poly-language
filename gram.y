@@ -146,7 +146,7 @@ peremen:
 termmonom:
             termmonom sign monom
             {
-
+                //printf("%d\n", $2);
                 // if ($2 == "-")
                 //     $3->coef[$3->capacity - 1] = - $3->coef[$3->capacity - 1];
                 //printf("()()\n");
@@ -208,7 +208,13 @@ exprmonom:
 
                 output_poly($3);
                 //fprintf(report, "------\n");
-                printf("%d\n", $3->capacity);
+                //printf("%d\n", $3->capacity);
+                if ($3->coef[0] < 0){
+                    printf("ERROR: minus power number! line: %d\n", yylineno);
+                    fprintf(report, "ERROR: exprmonom: expression POW exprmonom!\n >> Отрицательная степень!");
+                    exit(1);
+                }
+
                 if ($3->capacity == 1){
                     //fprintf(report, "------\n");
                     if ($1->capacity == 2){

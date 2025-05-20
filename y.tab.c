@@ -655,8 +655,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int16 yyrline[] =
 {
        0,   102,   102,   103,   104,   113,   118,   124,   130,   139,
-     147,   158,   170,   180,   185,   193,   204,   246,   255,   263,
-     273,   284,   291,   295
+     147,   158,   170,   180,   185,   193,   204,   252,   261,   269,
+     279,   290,   297,   301
 };
 #endif
 
@@ -1294,7 +1294,7 @@ yyreduce:
   case 10: /* termmonom: termmonom sign monom  */
 #line 148 "gram.y"
             {
-
+                printf("%d\n", (yyvsp[-1].signal));
                 // if ($2 == "-")
                 //     $3->coef[$3->capacity - 1] = - $3->coef[$3->capacity - 1];
                 //printf("()()\n");
@@ -1368,7 +1368,13 @@ yyreduce:
 
                 output_poly((yyvsp[0].poly));
                 //fprintf(report, "------\n");
-                printf("%d\n", (yyvsp[0].poly)->capacity);
+                //printf("%d\n", $3->capacity);
+                if ((yyvsp[0].poly)->coef[0] < 0){
+                    printf("ERROR: minus power number! line: %d\n", yylineno);
+                    fprintf(report, "ERROR: exprmonom: expression POW exprmonom!\n >> Отрицательная степень!");
+                    exit(1);
+                }
+
                 if ((yyvsp[0].poly)->capacity == 1){
                     //fprintf(report, "------\n");
                     if ((yyvsp[-2].poly)->capacity == 2){
@@ -1402,20 +1408,20 @@ yyreduce:
                     exit(1);
                 }
             }
-#line 1406 "y.tab.c"
+#line 1412 "y.tab.c"
     break;
 
   case 17: /* exprmonom: expression  */
-#line 247 "gram.y"
+#line 253 "gram.y"
             {
                 output_poly((yyvsp[0].poly));
                 (yyval.poly) = (yyvsp[0].poly);
             }
-#line 1415 "y.tab.c"
+#line 1421 "y.tab.c"
     break;
 
   case 18: /* expression: VARIABLE  */
-#line 255 "gram.y"
+#line 261 "gram.y"
                      {
                 fprintf(report, ">>expression: VARIABLE find\n");
                 if (((yyval.poly) = search_polynom_in_list((yyvsp[0].variable))) == NULL){
@@ -1423,11 +1429,11 @@ yyreduce:
                     break;
                 }
             }
-#line 1427 "y.tab.c"
+#line 1433 "y.tab.c"
     break;
 
   case 19: /* expression: NUMBER  */
-#line 263 "gram.y"
+#line 269 "gram.y"
                      {
                 fprintf(report, ">>expression: NUMBER created\n");
                 (yyval.poly) = (b_poly*)malloc(sizeof(b_poly));
@@ -1436,11 +1442,11 @@ yyreduce:
                 (yyval.poly)->coef[0] = (yyvsp[0].number);
                 //printf("---%c\n", $$->var);
             }
-#line 1440 "y.tab.c"
+#line 1446 "y.tab.c"
     break;
 
   case 20: /* expression: VAR  */
-#line 274 "gram.y"
+#line 280 "gram.y"
             {
                 fprintf(report, ">>expression: VAR created\n");
                 (yyval.poly) = (b_poly*)malloc(sizeof(b_poly));
@@ -1450,35 +1456,35 @@ yyreduce:
                 (yyval.poly)->var = (yyvsp[0].value);
 
             }
-#line 1454 "y.tab.c"
+#line 1460 "y.tab.c"
     break;
 
   case 21: /* expression: OPENC termmonom CLOSEC  */
-#line 285 "gram.y"
+#line 291 "gram.y"
             {
                 (yyval.poly) = (yyvsp[-1].poly);
             }
-#line 1462 "y.tab.c"
+#line 1468 "y.tab.c"
     break;
 
   case 22: /* sign: PLUS  */
-#line 292 "gram.y"
+#line 298 "gram.y"
             {
                 (yyval.signal) = 1;
             }
-#line 1470 "y.tab.c"
+#line 1476 "y.tab.c"
     break;
 
   case 23: /* sign: MINUS  */
-#line 296 "gram.y"
+#line 302 "gram.y"
             {
                 (yyval.signal) = 2;
             }
-#line 1478 "y.tab.c"
+#line 1484 "y.tab.c"
     break;
 
 
-#line 1482 "y.tab.c"
+#line 1488 "y.tab.c"
 
       default: break;
     }
@@ -1671,7 +1677,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 309 "gram.y"
+#line 315 "gram.y"
 
 void init_poly(b_poly* firstP){
     firstP->capacity = 0;
