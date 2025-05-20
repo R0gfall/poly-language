@@ -12,13 +12,6 @@ FILE *report;
 extern FILE *yyin;
 extern int yylineno;
 
-//extern int result;
-
-// int yyerror(const char*){
-//     printf("Syntax error occured\n");
-//     return 1;
-// }
-
 
 int yyerror(const char *s) {
     printf(">>Error in line: %d : %s\n", 
@@ -30,30 +23,23 @@ int yyerror(const char *s) {
     //fprintf()
     return 1;
 }
-// reliaze function to polinom
-// struct buffer_polynom
-// {
-//     int coef[100];
-//     char array_buffer[500];
-//     int capacity = 0;
-//     int flag = 0; // Priority
-// }
 
-
-// struct buffer_polynom
-// {
-//     int coef[100];
-//     char array_buffer[500];
-//     int capacity;
-//     int flag; // Priority
-// };
-
+void add_slash_to_file() {
+    FILE* input = fopen("test.txt", "a+");
+    fseek(input, -1, SEEK_END); 
+    char last_char = fgetc(input);
+    if (last_char != '\n') {
+        fputc('\n', input); 
+    }
+    fseek(input, 0, SEEK_SET);
+    fclose(input);
+}
 
 
 int main(){
-    //extern int result;
 
-    
+
+    add_slash_to_file();
 
     yyin = fopen("test.txt", "r");
     output = fopen("out.txt", "w");
