@@ -67,7 +67,8 @@ extern int yydebug;
     CLOSEC = 268,                  /* CLOSEC  */
     NUMBER = 269,                  /* NUMBER  */
     VAR = 270,                     /* VAR  */
-    VARIABLE = 271                 /* VARIABLE  */
+    VARIABLE = 271,                /* VARIABLE  */
+    SIGN = 272                     /* SIGN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -90,6 +91,7 @@ extern int yydebug;
 #define NUMBER 269
 #define VAR 270
 #define VARIABLE 271
+#define SIGN 272
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -105,7 +107,7 @@ union YYSTYPE
     char variable[100];
     //struct list_var* first_list_var;
 
-#line 109 "y.tab.h"
+#line 111 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

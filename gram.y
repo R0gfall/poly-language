@@ -92,6 +92,10 @@ b_poly* search_polynom_in_list(char* variable);
 %type <poly> peremen
 
 
+%left SIGN
+%right POW
+
+
 %%
 
 
@@ -155,16 +159,21 @@ termmonom:
 
             }
 
-            | sign monom
+            | sign monom %prec SIGN
             {
                 //printf("!()!(!)(!)!!()\n");
                 //printf("%d\n", $1);
+                //printf("-----\n");
+                //output_poly_to_file($2);
                 $$ = $2;
                 //($1 == "+") ? $$->fb_sign = 1 : $$->fb_sign = 2;
                 if ($1 == 2) {
                     fprintf(report, ">>termmonom: sign monom\n");
                     //printf("--%d\n", $2->capacity);
-                    $$->coef[$2->capacity - 1] = 0 - ($$->coef[$2->capacity - 1]);
+                    // $$->coef[$2->capacity - 1] = 0 - ($$->coef[$2->capacity - 1]);
+                    for (int i = 0; i < $2->capacity; i++){
+                        $$->coef[i] =  - ($$->coef[i]);
+                    }
                     fprintf(report, "sign coef = %d\n", $$->coef[$2->capacity - 1]);
                 }
             }
@@ -210,19 +219,24 @@ exprmonom:
 
                 output_poly($3);
                 //fprintf(report, "------\n");
-                //printf("%d\n", $3->capacity);
+                //printf("aaaa\n");
                 if ($3->coef[0] < 0){
+                    
                     printf("ERROR: minus power number! line: %d\n", yylineno);
-                    fprintf(report, "ERROR: exprmonom: expression POW exprmonom!\n >> Отрицательная степень!");
+                    fprintf(report, "ERROR: exprmonom: expression POW exprmonom!\n >> Mines power! line: %d", yylineno);
                     exit(1);
                 }
 
                 if ($3->capacity == 1){
+                    //printf("aaaa\n");
                     //fprintf(report, "------\n");
                     if ($1->capacity == 2){
-                        set_zero_poly($$);
-                        $$->capacity = $3->coef[0];
-                        $$->coef[$3->coef[0]] = 1;
+                        //set_zero_poly($$);
+                        //printf("aaaa\n");
+                        //$$->capacity = $3->coef[0];
+                        // $$->coef[$3->coef[0]] = 1;
+                        $$ = full_poly_power_poly($1, $3);
+
                         
                     }
 
@@ -233,12 +247,13 @@ exprmonom:
 
                     else {
                         $$ = full_poly_power_poly($1, $3);
-                        //printf("---\n");
+                        
+                        
                     }
                 }
 
                 else if ($3->capacity == 0){
-                    
+                    //printf("aaaa\n");
                     set_zero_poly($$);
                     $$->capacity = 1;
                     $$->coef[0] = 1;
@@ -246,7 +261,7 @@ exprmonom:
 
                 else {
                     printf("ERROR: minus power number! line: %d\n", yylineno);
-                    fprintf(report, "ERROR: exprmonom: expression POW exprmonom!\n >> Отрицательная степень!");
+                    fprintf(report, "ERROR: exprmonom: expression POW exprmonom!\n >> Minus power! line: %d", yylineno);
                     exit(1);
                 }
             }
@@ -355,11 +370,17 @@ b_poly* full_poly_power_poly(b_poly* firstP, b_poly* secondP){
 
     //printf("%d\n", firstP->coef[0]);
 
-    if (firstP->coef[0] > 0){
+    thirdP = firstP;
+    for (int i = 1; i < power; i++){
+        thirdP = multi_poly_to_poly(thirdP, firstP);
+    }
+    return thirdP;
+
+    /* if (firstP->coef[0] > 0){
         thirdP->coef[0] = (int)pow(firstP->coef[0], secondP->coef[0]);
         thirdP->capacity = 1;
         max_capacity = 1;
-        //printf("---\n");
+        
     }
 
     fprintf(report, "first step of function\n");
@@ -373,7 +394,7 @@ b_poly* full_poly_power_poly(b_poly* firstP, b_poly* secondP){
 
     }
     thirdP->capacity = max_capacity;
-    return thirdP;
+    return thirdP; */
 }
 
 
@@ -381,8 +402,6 @@ b_poly* add_poly_to_poly(b_poly* firstP, b_poly* secondP, int sign){
 
     // sign = 1 -> +
     // sign = 2 -> -
-
-    //printf("===coef %d\n", firstP->coef[2]);
 
     fprintf(report, ">>gram.y: FUNCTION add_poly_to_poly start\n");
 
@@ -396,11 +415,6 @@ b_poly* add_poly_to_poly(b_poly* firstP, b_poly* secondP, int sign){
     }
 
     if ((firstP->var != secondP->var)){
-        
-        // add yyerror()
-
-        //printf("<<>>%c\n", firstP->var);
-        //printf("<<>>%c\n", secondP->var);
 
         printf("<<Error: gram.y: func add_p2p: different var! line: %d\n", yylineno);
         fprintf(report, "<<Error: gram.y: func add_p2p: different var!\n");
@@ -416,41 +430,22 @@ b_poly* add_poly_to_poly(b_poly* firstP, b_poly* secondP, int sign){
     int maximum_pow = (firstP->capacity > secondP->capacity) ? firstP->capacity : secondP->capacity;
     fprintf(report, "max-pow %d\n", maximum_pow);
 
-
-    //struct buffer_polynom* thirdP = (b_poly*)malloc(sizeof(b_poly));
-    
-    //b_poly* thirdP = (b_poly*)malloc(sizeof(b_poly));
-
     thirdP->capacity = maximum_pow;
     thirdP->var = firstP->var;
 
-    //memset(thirdP->coef, 0, 2000); 
-
-    /* printf("-=-=-=- %d\n", sign);
-
-
-    printf("++++++++++\n");
-    output_poly(firstP);
-    output_poly(secondP);
-    printf("++++++++++\n"); */
-
     if (sign == 1){
-        //printf("PLUS\n");
+   
         for (int i = 0; i <= maximum_pow; i++){
             thirdP->coef[i] = firstP->coef[i] + secondP->coef[i];
         }
     }
-
-
     
     else if (sign == 2){
         //printf("MINUS\n");
         for (int i = 0; i <= maximum_pow; i++){
 
             thirdP->coef[i] = firstP->coef[i] - secondP->coef[i];
-            /* printf("><><><>%d\n", firstP->coef[i]);
-            printf("><><><>%d\n", secondP->coef[i]);
-            printf("><><><>%d\n", thirdP->coef[i]); */
+            
         
         }
     }
@@ -504,9 +499,10 @@ b_poly* multi_poly_to_poly(b_poly* firstP, b_poly* secondP){
             if ((firstP->coef[i] != 0) && (secondP->coef[j] != 0)){
                 int count_coef = firstP->coef[i] * secondP->coef[j];
                 //printf("))%d\n", count_coef);
+                //printf("()()\n");
                 int count_pow = i + j;
                 
-                thirdP->coef[count_pow] = count_coef;
+                thirdP->coef[count_pow] += count_coef;
                 thirdP->capacity = count_pow + 1;
 
             }
@@ -514,8 +510,6 @@ b_poly* multi_poly_to_poly(b_poly* firstP, b_poly* secondP){
         
     }
 
-    /* free(firstP);
-    free(secondP); */
     return thirdP;
     
 
@@ -586,36 +580,36 @@ void output_poly_to_file(b_poly* firstP) {
         if (coef == 0) continue; 
         if (!first_term) {
             if (coef > 0) {
-                fprintf(output, " + ");
+                printf(" + ");
             } else {
-                fprintf(output, " - ");
+                printf(" - ");
                 coef = -coef; 
             }
         } else {
             if (coef < 0) {
-                fprintf(output, "-");
+                printf("-");
                 coef = -coef;
             }
             first_term = 0;
         }
 
         if (i == 0) {
-            fprintf(output, "%d", coef);
+            printf("%d", coef);
         } else {
             if (coef != 1 || i == 0) { 
-                fprintf(output, "%d", coef);
+                printf("%d", coef);
             }
-            fprintf(output, "%c", firstP->var);
+            printf("%c", firstP->var);
             if (i > 1) {
-                fprintf(output, "^%d", i);
+                printf("^%d", i);
             }
         }
     }
 
     if (first_term) { 
-        fprintf(output, "0");
+        printf("0");
     }
-    fprintf(output, "\n");
+    printf("\n");
 }
 
 

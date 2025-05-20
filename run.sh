@@ -23,4 +23,4 @@ fi
 
 # Запуск парсера
 echo "Парсер запущен:"
-./parser
+./parser test.txt
