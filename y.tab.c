@@ -655,8 +655,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int16 yyrline[] =
 {
        0,   102,   102,   103,   104,   113,   118,   124,   130,   139,
-     147,   158,   170,   180,   185,   193,   204,   237,   246,   254,
-     264,   275,   282,   286
+     147,   158,   170,   180,   185,   193,   204,   246,   255,   263,
+     273,   284,   291,   295
 };
 #endif
 
@@ -1363,11 +1363,19 @@ yyreduce:
   case 16: /* exprmonom: expression POW exprmonom  */
 #line 205 "gram.y"
             {
+                fprintf(report, ">>exprmonom: expression POW exprmonom!\n");
+                output_poly((yyvsp[-2].poly));
+
+                output_poly((yyvsp[0].poly));
+                //fprintf(report, "------\n");
+                printf("%d\n", (yyvsp[0].poly)->capacity);
                 if ((yyvsp[0].poly)->capacity == 1){
+                    //fprintf(report, "------\n");
                     if ((yyvsp[-2].poly)->capacity == 2){
                         set_zero_poly((yyval.poly));
                         (yyval.poly)->capacity = (yyvsp[0].poly)->coef[0];
                         (yyval.poly)->coef[(yyvsp[0].poly)->coef[0]] = 1;
+                        
                     }
 
                     // else if ($1->capacity == 1){
@@ -1382,6 +1390,7 @@ yyreduce:
                 }
 
                 else if ((yyvsp[0].poly)->capacity == 0){
+                    
                     set_zero_poly((yyval.poly));
                     (yyval.poly)->capacity = 1;
                     (yyval.poly)->coef[0] = 1;
@@ -1393,20 +1402,20 @@ yyreduce:
                     exit(1);
                 }
             }
-#line 1397 "y.tab.c"
+#line 1406 "y.tab.c"
     break;
 
   case 17: /* exprmonom: expression  */
-#line 238 "gram.y"
+#line 247 "gram.y"
             {
                 output_poly((yyvsp[0].poly));
                 (yyval.poly) = (yyvsp[0].poly);
             }
-#line 1406 "y.tab.c"
+#line 1415 "y.tab.c"
     break;
 
   case 18: /* expression: VARIABLE  */
-#line 246 "gram.y"
+#line 255 "gram.y"
                      {
                 fprintf(report, ">>expression: VARIABLE find\n");
                 if (((yyval.poly) = search_polynom_in_list((yyvsp[0].variable))) == NULL){
@@ -1414,11 +1423,11 @@ yyreduce:
                     break;
                 }
             }
-#line 1418 "y.tab.c"
+#line 1427 "y.tab.c"
     break;
 
   case 19: /* expression: NUMBER  */
-#line 254 "gram.y"
+#line 263 "gram.y"
                      {
                 fprintf(report, ">>expression: NUMBER created\n");
                 (yyval.poly) = (b_poly*)malloc(sizeof(b_poly));
@@ -1427,11 +1436,11 @@ yyreduce:
                 (yyval.poly)->coef[0] = (yyvsp[0].number);
                 //printf("---%c\n", $$->var);
             }
-#line 1431 "y.tab.c"
+#line 1440 "y.tab.c"
     break;
 
   case 20: /* expression: VAR  */
-#line 265 "gram.y"
+#line 274 "gram.y"
             {
                 fprintf(report, ">>expression: VAR created\n");
                 (yyval.poly) = (b_poly*)malloc(sizeof(b_poly));
@@ -1441,35 +1450,35 @@ yyreduce:
                 (yyval.poly)->var = (yyvsp[0].value);
 
             }
-#line 1445 "y.tab.c"
+#line 1454 "y.tab.c"
     break;
 
   case 21: /* expression: OPENC termmonom CLOSEC  */
-#line 276 "gram.y"
+#line 285 "gram.y"
             {
                 (yyval.poly) = (yyvsp[-1].poly);
             }
-#line 1453 "y.tab.c"
+#line 1462 "y.tab.c"
     break;
 
   case 22: /* sign: PLUS  */
-#line 283 "gram.y"
+#line 292 "gram.y"
             {
                 (yyval.signal) = 1;
             }
-#line 1461 "y.tab.c"
+#line 1470 "y.tab.c"
     break;
 
   case 23: /* sign: MINUS  */
-#line 287 "gram.y"
+#line 296 "gram.y"
             {
                 (yyval.signal) = 2;
             }
-#line 1469 "y.tab.c"
+#line 1478 "y.tab.c"
     break;
 
 
-#line 1473 "y.tab.c"
+#line 1482 "y.tab.c"
 
       default: break;
     }
@@ -1662,7 +1671,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 300 "gram.y"
+#line 309 "gram.y"
 
 void init_poly(b_poly* firstP){
     firstP->capacity = 0;
@@ -1838,19 +1847,25 @@ b_poly* multi_poly_to_poly(b_poly* firstP, b_poly* secondP){
     //struct b_poly thirdP;
     
     b_poly* thirdP = (b_poly*)malloc(sizeof(b_poly));
+    //thirdP->capacity = 1;
+
 
     thirdP->var = firstP->var;
     memset(thirdP->coef, 0, 2000);
 
+
+
     
     for (int i = 0; i <= firstP->capacity; i++){
         for (int j = 0; j <= secondP->capacity; j++){
+            
             if ((firstP->coef[i] != 0) && (secondP->coef[j] != 0)){
                 int count_coef = firstP->coef[i] * secondP->coef[j];
+                printf("))%d\n", count_coef);
                 int count_pow = i + j;
                 
                 thirdP->coef[count_pow] = count_coef;
-                thirdP->capacity = count_pow;
+                thirdP->capacity = count_pow + 1;
 
             }
         }

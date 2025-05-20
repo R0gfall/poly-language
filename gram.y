@@ -203,11 +203,19 @@ monom:
 exprmonom:
             expression POW exprmonom
             {
+                fprintf(report, ">>exprmonom: expression POW exprmonom!\n");
+                output_poly($1);
+
+                output_poly($3);
+                //fprintf(report, "------\n");
+                printf("%d\n", $3->capacity);
                 if ($3->capacity == 1){
+                    //fprintf(report, "------\n");
                     if ($1->capacity == 2){
                         set_zero_poly($$);
                         $$->capacity = $3->coef[0];
                         $$->coef[$3->coef[0]] = 1;
+                        
                     }
 
                     // else if ($1->capacity == 1){
@@ -222,6 +230,7 @@ exprmonom:
                 }
 
                 else if ($3->capacity == 0){
+                    
                     set_zero_poly($$);
                     $$->capacity = 1;
                     $$->coef[0] = 1;
@@ -472,19 +481,25 @@ b_poly* multi_poly_to_poly(b_poly* firstP, b_poly* secondP){
     //struct b_poly thirdP;
     
     b_poly* thirdP = (b_poly*)malloc(sizeof(b_poly));
+    //thirdP->capacity = 1;
+
 
     thirdP->var = firstP->var;
     memset(thirdP->coef, 0, 2000);
 
+
+
     
     for (int i = 0; i <= firstP->capacity; i++){
         for (int j = 0; j <= secondP->capacity; j++){
+            
             if ((firstP->coef[i] != 0) && (secondP->coef[j] != 0)){
                 int count_coef = firstP->coef[i] * secondP->coef[j];
+                printf("))%d\n", count_coef);
                 int count_pow = i + j;
                 
                 thirdP->coef[count_pow] = count_coef;
-                thirdP->capacity = count_pow;
+                thirdP->capacity = count_pow + 1;
 
             }
         }
