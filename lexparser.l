@@ -13,9 +13,9 @@ int yyerror(const char* s);
 
 %%
 
-#.*\n         ;
 
-#.*           ;
+
+[#].*           ;
 
 [0-9]+      {   yylval.number = atoi(yytext);
                 fprintf(report, "lex: number: %d\n", yylval.number); return NUMBER;}
@@ -40,11 +40,12 @@ int yyerror(const char* s);
 "="         return EQUAL;
 "!"         return OY; 
 ">>"        return PRINT;       
-[ ]*\n             ;
-[\t]               ;
-" "                ;
+[ ]*             ;
+[\t]+              ;
 
-\n|\0        	   ;
+
+\n          return NEXT;
+\0        	   ;
 .           { yyerror("Incorrect symbol!"); } 
 
 

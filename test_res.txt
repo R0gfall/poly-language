@@ -2,7 +2,7 @@
 >> A + x^4 # comment A + 12
 >> 12-10+(2z^3)
 >> x+6-(x^(2-2) + xxxxxx) 
-# !B = 777xxxxxxxxxx
+!B = 777xxxxxxxxxx
 
 
 
@@ -10,8 +10,8 @@
 >> x^2 
 x + 13 - 1
 x^4
-!AA = 7xxxxxxx
-AA
->> AA
+
+!A = 7xxxxxxx
+A
+>> A
 >> a-a
->> (AA)^2

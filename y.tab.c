@@ -180,11 +180,12 @@ extern int yydebug;
     EQUAL = 262,                   /* EQUAL  */
     OY = 263,                      /* OY  */
     PRINT = 264,                   /* PRINT  */
-    OPENC = 265,                   /* OPENC  */
-    CLOSEC = 266,                  /* CLOSEC  */
-    NUMBER = 267,                  /* NUMBER  */
-    VAR = 268,                     /* VAR  */
-    VARIABLE = 269                 /* VARIABLE  */
+    NEXT = 265,                    /* NEXT  */
+    OPENC = 266,                   /* OPENC  */
+    CLOSEC = 267,                  /* CLOSEC  */
+    NUMBER = 268,                  /* NUMBER  */
+    VAR = 269,                     /* VAR  */
+    VARIABLE = 270                 /* VARIABLE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -200,11 +201,12 @@ extern int yydebug;
 #define EQUAL 262
 #define OY 263
 #define PRINT 264
-#define OPENC 265
-#define CLOSEC 266
-#define NUMBER 267
-#define VAR 268
-#define VARIABLE 269
+#define NEXT 265
+#define OPENC 266
+#define CLOSEC 267
+#define NUMBER 268
+#define VAR 269
+#define VARIABLE 270
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -220,7 +222,7 @@ union YYSTYPE
     char variable[100];
     //struct list_var* first_list_var;
 
-#line 224 "y.tab.c"
+#line 226 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -250,20 +252,21 @@ enum yysymbol_kind_t
   YYSYMBOL_EQUAL = 7,                      /* EQUAL  */
   YYSYMBOL_OY = 8,                         /* OY  */
   YYSYMBOL_PRINT = 9,                      /* PRINT  */
-  YYSYMBOL_OPENC = 10,                     /* OPENC  */
-  YYSYMBOL_CLOSEC = 11,                    /* CLOSEC  */
-  YYSYMBOL_NUMBER = 12,                    /* NUMBER  */
-  YYSYMBOL_VAR = 13,                       /* VAR  */
-  YYSYMBOL_VARIABLE = 14,                  /* VARIABLE  */
-  YYSYMBOL_YYACCEPT = 15,                  /* $accept  */
-  YYSYMBOL_main = 16,                      /* main  */
-  YYSYMBOL_polynom = 17,                   /* polynom  */
-  YYSYMBOL_peremen = 18,                   /* peremen  */
-  YYSYMBOL_termmonom = 19,                 /* termmonom  */
-  YYSYMBOL_monom = 20,                     /* monom  */
-  YYSYMBOL_exprmonom = 21,                 /* exprmonom  */
-  YYSYMBOL_expression = 22,                /* expression  */
-  YYSYMBOL_sign = 23                       /* sign  */
+  YYSYMBOL_NEXT = 10,                      /* NEXT  */
+  YYSYMBOL_OPENC = 11,                     /* OPENC  */
+  YYSYMBOL_CLOSEC = 12,                    /* CLOSEC  */
+  YYSYMBOL_NUMBER = 13,                    /* NUMBER  */
+  YYSYMBOL_VAR = 14,                       /* VAR  */
+  YYSYMBOL_VARIABLE = 15,                  /* VARIABLE  */
+  YYSYMBOL_YYACCEPT = 16,                  /* $accept  */
+  YYSYMBOL_main = 17,                      /* main  */
+  YYSYMBOL_polynom = 18,                   /* polynom  */
+  YYSYMBOL_peremen = 19,                   /* peremen  */
+  YYSYMBOL_termmonom = 20,                 /* termmonom  */
+  YYSYMBOL_monom = 21,                     /* monom  */
+  YYSYMBOL_exprmonom = 22,                 /* exprmonom  */
+  YYSYMBOL_expression = 23,                /* expression  */
+  YYSYMBOL_sign = 24                       /* sign  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -589,21 +592,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  21
+#define YYFINAL  23
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   66
+#define YYLAST   68
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  15
+#define YYNTOKENS  16
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  9
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  22
+#define YYNRULES  23
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  34
+#define YYNSTATES  37
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   269
+#define YYMAXUTOK   270
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -643,16 +646,17 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   102,   102,   103,   111,   116,   122,   128,   137,   145,
-     156,   168,   178,   183,   191,   202,   235,   244,   252,   262,
-     273,   280,   284
+       0,   102,   102,   103,   104,   113,   118,   124,   130,   139,
+     147,   158,   170,   180,   185,   193,   204,   237,   246,   254,
+     264,   275,   282,   286
 };
 #endif
 
@@ -669,9 +673,9 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "PLUS", "MINUS",
-  "MULTI", "POW", "EQUAL", "OY", "PRINT", "OPENC", "CLOSEC", "NUMBER",
-  "VAR", "VARIABLE", "$accept", "main", "polynom", "peremen", "termmonom",
-  "monom", "exprmonom", "expression", "sign", YY_NULLPTR
+  "MULTI", "POW", "EQUAL", "OY", "PRINT", "NEXT", "OPENC", "CLOSEC",
+  "NUMBER", "VAR", "VARIABLE", "$accept", "main", "polynom", "peremen",
+  "termmonom", "monom", "exprmonom", "expression", "sign", YY_NULLPTR
 };
 
 static const char *
@@ -681,7 +685,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-12)
+#define YYPACT_NINF (-13)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -695,10 +699,10 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      22,   -12,   -12,   -11,    34,    46,   -12,   -12,   -12,     7,
-      22,   -12,     8,    52,   -12,    10,    41,     1,   -12,     8,
-       2,   -12,   -12,    41,    41,   -12,    41,    52,    46,   -12,
-      52,   -12,   -12,     8
+      24,   -13,   -13,    -8,    37,    24,    43,   -13,   -13,   -13,
+      16,    10,   -13,     9,    48,   -13,     3,    53,    14,   -13,
+       9,   -13,     2,   -13,    24,    53,    53,   -13,    53,    48,
+      43,   -13,   -13,    48,   -13,   -13,     9
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -706,22 +710,22 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,    21,    22,     0,     0,     0,    18,    19,    17,     0,
-       2,     6,     4,    11,    14,    16,     0,     0,     7,     5,
-       0,     1,     3,     0,     0,    13,     0,    10,     0,    20,
-       9,    12,    15,     8
+       2,    22,    23,     0,     0,     2,     0,    19,    20,    18,
+       0,     0,     7,     5,    12,    15,    17,     0,     0,     8,
+       6,     4,     0,     1,     2,     0,     0,    14,     0,    11,
+       0,    21,     3,    10,    13,    16,     9
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -12,     9,   -12,    18,    -4,     4,    -9,   -12,   -10
+     -13,    -1,   -13,    21,    -4,    -6,   -11,   -13,   -12
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     9,    10,    11,    12,    13,    14,    15,    16
+       0,    10,    11,    12,    13,    14,    15,    16,    17
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -729,50 +733,50 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      19,    20,    23,    17,    25,     1,     2,    21,    28,    23,
-      23,     1,     2,    29,     0,    31,    26,    32,    25,    22,
-      27,    25,    18,    23,    33,     1,     2,    30,     0,     0,
-       3,     4,     5,     0,     6,     7,     8,     1,     2,     0,
-       0,     0,     3,     0,     5,     0,     6,     7,     8,     1,
-       2,     5,     0,     6,     7,     8,     5,    24,     6,     7,
-       8,     0,     5,     0,     6,     7,     8
+      20,    25,    22,    27,    21,     1,     2,    18,    25,    28,
+      25,    29,     1,     2,    31,    34,    23,    35,    27,    33,
+      24,    30,    27,    32,    25,    19,    36,     1,     2,     0,
+       0,     0,     3,     4,     5,     6,     0,     7,     8,     9,
+       1,     2,     0,     0,     0,     3,     1,     2,     6,     0,
+       7,     8,     9,    26,     6,     0,     7,     8,     9,     6,
+       0,     7,     8,     9,     6,     0,     7,     8,     9
 };
 
 static const yytype_int8 yycheck[] =
 {
-       4,     5,    12,    14,    13,     3,     4,     0,     7,    19,
-      20,     3,     4,    11,    -1,    24,     6,    26,    27,    10,
-      16,    30,     4,    33,    28,     3,     4,    23,    -1,    -1,
-       8,     9,    10,    -1,    12,    13,    14,     3,     4,    -1,
-      -1,    -1,     8,    -1,    10,    -1,    12,    13,    14,     3,
-       4,    10,    -1,    12,    13,    14,    10,     5,    12,    13,
-      14,    -1,    10,    -1,    12,    13,    14
+       4,    13,     6,    14,     5,     3,     4,    15,    20,     6,
+      22,    17,     3,     4,    12,    26,     0,    28,    29,    25,
+      10,     7,    33,    24,    36,     4,    30,     3,     4,    -1,
+      -1,    -1,     8,     9,    10,    11,    -1,    13,    14,    15,
+       3,     4,    -1,    -1,    -1,     8,     3,     4,    11,    -1,
+      13,    14,    15,     5,    11,    -1,    13,    14,    15,    11,
+      -1,    13,    14,    15,    11,    -1,    13,    14,    15
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     8,     9,    10,    12,    13,    14,    16,
-      17,    18,    19,    20,    21,    22,    23,    14,    18,    19,
-      19,     0,    16,    23,     5,    21,     6,    20,     7,    11,
-      20,    21,    21,    19
+       0,     3,     4,     8,     9,    10,    11,    13,    14,    15,
+      17,    18,    19,    20,    21,    22,    23,    24,    15,    19,
+      20,    17,    20,     0,    10,    24,     5,    22,     6,    21,
+       7,    12,    17,    21,    22,    22,    20
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    15,    16,    16,    17,    17,    17,    17,    18,    19,
-      19,    19,    20,    20,    20,    21,    21,    22,    22,    22,
-      22,    23,    23
+       0,    16,    17,    17,    17,    18,    18,    18,    18,    19,
+      20,    20,    20,    21,    21,    21,    22,    22,    23,    23,
+      23,    23,    24,    24
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     0,     2,     1,     2,     1,     2,     4,     3,
-       2,     1,     3,     2,     1,     3,     1,     1,     1,     1,
-       3,     1,     1
+       0,     2,     0,     3,     2,     1,     2,     1,     2,     4,
+       3,     2,     1,     3,     2,     1,     3,     1,     1,     1,
+       1,     3,     1,     1
 };
 
 
@@ -1235,60 +1239,60 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 3: /* main: polynom main  */
-#line 104 "gram.y"
+  case 4: /* main: NEXT main  */
+#line 105 "gram.y"
     {
         fprintf(report, ">>main competed!\n");   
     }
-#line 1244 "y.tab.c"
+#line 1248 "y.tab.c"
     break;
 
-  case 4: /* polynom: termmonom  */
-#line 112 "gram.y"
+  case 5: /* polynom: termmonom  */
+#line 114 "gram.y"
             {
                 (yyval.poly) = (yyvsp[0].poly);
             }
-#line 1252 "y.tab.c"
+#line 1256 "y.tab.c"
     break;
 
-  case 5: /* polynom: PRINT termmonom  */
-#line 117 "gram.y"
-            {
-                output_poly_to_file((yyvsp[0].poly));
-                (yyval.poly) = (yyvsp[0].poly);
-            }
-#line 1261 "y.tab.c"
-    break;
-
-  case 6: /* polynom: peremen  */
-#line 124 "gram.y"
-            {
-                (yyval.poly) = (yyvsp[0].poly);
-            }
-#line 1269 "y.tab.c"
-    break;
-
-  case 7: /* polynom: PRINT peremen  */
-#line 129 "gram.y"
+  case 6: /* polynom: PRINT termmonom  */
+#line 119 "gram.y"
             {
                 output_poly_to_file((yyvsp[0].poly));
                 (yyval.poly) = (yyvsp[0].poly);
             }
-#line 1278 "y.tab.c"
+#line 1265 "y.tab.c"
     break;
 
-  case 8: /* peremen: OY VARIABLE EQUAL termmonom  */
-#line 138 "gram.y"
+  case 7: /* polynom: peremen  */
+#line 126 "gram.y"
+            {
+                (yyval.poly) = (yyvsp[0].poly);
+            }
+#line 1273 "y.tab.c"
+    break;
+
+  case 8: /* polynom: PRINT peremen  */
+#line 131 "gram.y"
+            {
+                output_poly_to_file((yyvsp[0].poly));
+                (yyval.poly) = (yyvsp[0].poly);
+            }
+#line 1282 "y.tab.c"
+    break;
+
+  case 9: /* peremen: OY VARIABLE EQUAL termmonom  */
+#line 140 "gram.y"
             {
                 (yyval.poly) = (yyvsp[0].poly);
                 fprintf(report, ">>peremen: OY VARIABLE EQUAL termmonom: Find new peremen!\n");
                 add_new_element((yyvsp[-2].variable), (yyvsp[0].poly));
             }
-#line 1288 "y.tab.c"
+#line 1292 "y.tab.c"
     break;
 
-  case 9: /* termmonom: termmonom sign monom  */
-#line 146 "gram.y"
+  case 10: /* termmonom: termmonom sign monom  */
+#line 148 "gram.y"
             {
 
                 // if ($2 == "-")
@@ -1298,11 +1302,11 @@ yyreduce:
                 (yyval.poly) = add_poly_to_poly((yyvsp[-2].poly), (yyvsp[0].poly), (yyvsp[-1].signal));
 
             }
-#line 1302 "y.tab.c"
+#line 1306 "y.tab.c"
     break;
 
-  case 10: /* termmonom: sign monom  */
-#line 157 "gram.y"
+  case 11: /* termmonom: sign monom  */
+#line 159 "gram.y"
             {
                 //printf("!()!(!)(!)!!()\n");
                 (yyval.poly) = (yyvsp[0].poly);
@@ -1313,39 +1317,39 @@ yyreduce:
                     fprintf(report, "sign coef = %d\n", (yyval.poly)->coef[(yyvsp[0].poly)->capacity]);
                 }
             }
-#line 1317 "y.tab.c"
+#line 1321 "y.tab.c"
     break;
 
-  case 11: /* termmonom: monom  */
-#line 169 "gram.y"
+  case 12: /* termmonom: monom  */
+#line 171 "gram.y"
             {
                 //printf("!()!(!)(!)!!()\n");
                 (yyval.poly) = (yyvsp[0].poly);
             }
-#line 1326 "y.tab.c"
+#line 1330 "y.tab.c"
     break;
 
-  case 12: /* monom: monom MULTI exprmonom  */
-#line 179 "gram.y"
+  case 13: /* monom: monom MULTI exprmonom  */
+#line 181 "gram.y"
             {
                 (yyval.poly) = multi_poly_to_poly((yyvsp[-2].poly), (yyvsp[0].poly));
             }
-#line 1334 "y.tab.c"
+#line 1338 "y.tab.c"
     break;
 
-  case 13: /* monom: monom exprmonom  */
-#line 184 "gram.y"
+  case 14: /* monom: monom exprmonom  */
+#line 186 "gram.y"
             {
                 //printf(">>monom: monom exprmonom created\n");
                 output_poly((yyvsp[-1].poly));
                 output_poly((yyvsp[0].poly));
                 (yyval.poly) = multi_poly_to_poly((yyvsp[-1].poly), (yyvsp[0].poly));
             }
-#line 1345 "y.tab.c"
+#line 1349 "y.tab.c"
     break;
 
-  case 14: /* monom: exprmonom  */
-#line 192 "gram.y"
+  case 15: /* monom: exprmonom  */
+#line 194 "gram.y"
             {
                 fprintf(report, ">>monom: exprmonom created\n");
                 output_poly((yyvsp[0].poly));
@@ -1353,11 +1357,11 @@ yyreduce:
                 (yyval.poly) = (yyvsp[0].poly);
                 //free($1);
             }
-#line 1357 "y.tab.c"
+#line 1361 "y.tab.c"
     break;
 
-  case 15: /* exprmonom: expression POW exprmonom  */
-#line 203 "gram.y"
+  case 16: /* exprmonom: expression POW exprmonom  */
+#line 205 "gram.y"
             {
                 if ((yyvsp[0].poly)->capacity == 1){
                     if ((yyvsp[-2].poly)->capacity == 2){
@@ -1389,20 +1393,20 @@ yyreduce:
                     exit(1);
                 }
             }
-#line 1393 "y.tab.c"
+#line 1397 "y.tab.c"
     break;
 
-  case 16: /* exprmonom: expression  */
-#line 236 "gram.y"
+  case 17: /* exprmonom: expression  */
+#line 238 "gram.y"
             {
                 output_poly((yyvsp[0].poly));
                 (yyval.poly) = (yyvsp[0].poly);
             }
-#line 1402 "y.tab.c"
+#line 1406 "y.tab.c"
     break;
 
-  case 17: /* expression: VARIABLE  */
-#line 244 "gram.y"
+  case 18: /* expression: VARIABLE  */
+#line 246 "gram.y"
                      {
                 fprintf(report, ">>expression: VARIABLE find\n");
                 if (((yyval.poly) = search_polynom_in_list((yyvsp[0].variable))) == NULL){
@@ -1410,11 +1414,11 @@ yyreduce:
                     break;
                 }
             }
-#line 1414 "y.tab.c"
+#line 1418 "y.tab.c"
     break;
 
-  case 18: /* expression: NUMBER  */
-#line 252 "gram.y"
+  case 19: /* expression: NUMBER  */
+#line 254 "gram.y"
                      {
                 fprintf(report, ">>expression: NUMBER created\n");
                 (yyval.poly) = (b_poly*)malloc(sizeof(b_poly));
@@ -1423,11 +1427,11 @@ yyreduce:
                 (yyval.poly)->coef[0] = (yyvsp[0].number);
                 //printf("---%c\n", $$->var);
             }
-#line 1427 "y.tab.c"
+#line 1431 "y.tab.c"
     break;
 
-  case 19: /* expression: VAR  */
-#line 263 "gram.y"
+  case 20: /* expression: VAR  */
+#line 265 "gram.y"
             {
                 fprintf(report, ">>expression: VAR created\n");
                 (yyval.poly) = (b_poly*)malloc(sizeof(b_poly));
@@ -1437,35 +1441,35 @@ yyreduce:
                 (yyval.poly)->var = (yyvsp[0].value);
 
             }
-#line 1441 "y.tab.c"
+#line 1445 "y.tab.c"
     break;
 
-  case 20: /* expression: OPENC termmonom CLOSEC  */
-#line 274 "gram.y"
+  case 21: /* expression: OPENC termmonom CLOSEC  */
+#line 276 "gram.y"
             {
                 (yyval.poly) = (yyvsp[-1].poly);
             }
-#line 1449 "y.tab.c"
+#line 1453 "y.tab.c"
     break;
 
-  case 21: /* sign: PLUS  */
-#line 281 "gram.y"
+  case 22: /* sign: PLUS  */
+#line 283 "gram.y"
             {
                 (yyval.signal) = 1;
             }
-#line 1457 "y.tab.c"
+#line 1461 "y.tab.c"
     break;
 
-  case 22: /* sign: MINUS  */
-#line 285 "gram.y"
+  case 23: /* sign: MINUS  */
+#line 287 "gram.y"
             {
                 (yyval.signal) = 2;
             }
-#line 1465 "y.tab.c"
+#line 1469 "y.tab.c"
     break;
 
 
-#line 1469 "y.tab.c"
+#line 1473 "y.tab.c"
 
       default: break;
     }
@@ -1658,7 +1662,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 298 "gram.y"
+#line 300 "gram.y"
 
 void init_poly(b_poly* firstP){
     firstP->capacity = 0;
@@ -1710,7 +1714,7 @@ b_poly* full_poly_power_poly(b_poly* firstP, b_poly* secondP){
     fprintf(report, "first step of function\n");
     output_poly(thirdP);
 
-    printf("%d\n", firstP->capacity);
+    // printf("%d\n", firstP->capacity);
     for (int i = 1; i <= firstP->capacity; i++){
         thirdP->coef[i * secondP->coef[0]] = (int)pow(firstP->coef[i], secondP->coef[0]);
         //printf("---\n");

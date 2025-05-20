@@ -74,7 +74,7 @@ b_poly* search_polynom_in_list(char* variable);
 }
 
 
-%token PLUS MINUS MULTI POW EQUAL OY PRINT
+%token PLUS MINUS MULTI POW EQUAL OY PRINT NEXT
 
 %token OPENC CLOSEC      // ADD ( ) !
 
@@ -100,10 +100,12 @@ b_poly* search_polynom_in_list(char* variable);
 
 
 main: 
-    | polynom main
+    | polynom NEXT main
+    | NEXT main
     {
         fprintf(report, ">>main competed!\n");   
-    }; 
+    }
+    ; 
     
 
 
@@ -346,7 +348,7 @@ b_poly* full_poly_power_poly(b_poly* firstP, b_poly* secondP){
     fprintf(report, "first step of function\n");
     output_poly(thirdP);
 
-    printf("%d\n", firstP->capacity);
+    // printf("%d\n", firstP->capacity);
     for (int i = 1; i <= firstP->capacity; i++){
         thirdP->coef[i * secondP->coef[0]] = (int)pow(firstP->coef[i], secondP->coef[0]);
         //printf("---\n");

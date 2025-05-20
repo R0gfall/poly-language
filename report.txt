@@ -269,14 +269,14 @@ lex: number: 2
 >>monom: exprmonom created
 >>gram.y: FUNCTION output_poly start
 x^2
->>expression: VARIABLE find
->>function search_polynom_in_list: Start search at list_var!
+lex: val: x
+>>expression: VAR created
 lex: : PLUS
 >>gram.y: FUNCTION output_poly start
-2x^15 + 5
+x
 >>monom: exprmonom created
 >>gram.y: FUNCTION output_poly start
-2x^15 + 5
+x
 lex: number: 13
 >>expression: NUMBER created
 lex: : MINUS
@@ -286,9 +286,9 @@ lex: : MINUS
 >>gram.y: FUNCTION output_poly start
 13
 >>gram.y: FUNCTION add_poly_to_poly start
-max-pow 15
+max-pow 2
 >>gram.y: FUNCTION output_poly start
-2x^15 + 18
+x + 13
 lex: number: 1
 >>expression: NUMBER created
 >>gram.y: FUNCTION output_poly start
@@ -297,9 +297,125 @@ lex: number: 1
 >>gram.y: FUNCTION output_poly start
 1
 >>gram.y: FUNCTION add_poly_to_poly start
-max-pow 15
+max-pow 2
 >>gram.y: FUNCTION output_poly start
-2x^15 + 17
+x + 12
+lex: val: x
+>>expression: VAR created
+lex: number: 4
+>>expression: NUMBER created
+>>gram.y: FUNCTION output_poly start
+4
+>>monom: exprmonom created
+>>gram.y: FUNCTION output_poly start
+x^4
+lex: number: 7
+>>expression: NUMBER created
+lex: val: x
+>>gram.y: FUNCTION output_poly start
+7
+>>monom: exprmonom created
+>>gram.y: FUNCTION output_poly start
+7
+>>expression: VAR created
+lex: val: x
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7
+>>gram.y: FUNCTION output_poly start
+x
+>>expression: VAR created
+lex: val: x
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x
+>>gram.y: FUNCTION output_poly start
+x
+>>expression: VAR created
+lex: val: x
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^2
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^2
+>>gram.y: FUNCTION output_poly start
+x
+>>expression: VAR created
+lex: val: x
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^3
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^3
+>>gram.y: FUNCTION output_poly start
+x
+>>expression: VAR created
+lex: val: x
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^4
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^4
+>>gram.y: FUNCTION output_poly start
+x
+>>expression: VAR created
+lex: val: x
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^5
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^5
+>>gram.y: FUNCTION output_poly start
+x
+>>expression: VAR created
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^6
+>>gram.y: FUNCTION output_poly start
+x
+>>gram.y: FUNCTION output_poly start
+7x^6
+>>gram.y: FUNCTION output_poly start
+x
+>>peremen: OY VARIABLE EQUAL termmonom: Find new peremen!
+>>function add_new_element: Create new element at list_var!
+>>expression: VARIABLE find
+>>function search_polynom_in_list: Start search at list_var!
+>>gram.y: FUNCTION output_poly start
+7x^7
+>>monom: exprmonom created
+>>gram.y: FUNCTION output_poly start
+7x^7
+>>expression: VARIABLE find
+>>function search_polynom_in_list: Start search at list_var!
+>>gram.y: FUNCTION output_poly start
+7x^7
+>>monom: exprmonom created
+>>gram.y: FUNCTION output_poly start
+7x^7
 lex: val: a
 >>expression: VAR created
 lex: : MINUS
@@ -308,21 +424,4 @@ a
 >>monom: exprmonom created
 >>gram.y: FUNCTION output_poly start
 a
-lex: val: a
->>expression: VAR created
->>gram.y: FUNCTION output_poly start
-a
->>monom: exprmonom created
->>gram.y: FUNCTION output_poly start
-a
->>gram.y: FUNCTION add_poly_to_poly start
-max-pow 2
->>gram.y: FUNCTION output_poly start
-0
->>main competed!
->>main competed!
->>main competed!
->>main competed!
->>main competed!
->>main competed!
->>main competed!
+lex: : MINUS

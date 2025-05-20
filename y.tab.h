@@ -61,11 +61,12 @@ extern int yydebug;
     EQUAL = 262,                   /* EQUAL  */
     OY = 263,                      /* OY  */
     PRINT = 264,                   /* PRINT  */
-    OPENC = 265,                   /* OPENC  */
-    CLOSEC = 266,                  /* CLOSEC  */
-    NUMBER = 267,                  /* NUMBER  */
-    VAR = 268,                     /* VAR  */
-    VARIABLE = 269                 /* VARIABLE  */
+    NEXT = 265,                    /* NEXT  */
+    OPENC = 266,                   /* OPENC  */
+    CLOSEC = 267,                  /* CLOSEC  */
+    NUMBER = 268,                  /* NUMBER  */
+    VAR = 269,                     /* VAR  */
+    VARIABLE = 270                 /* VARIABLE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -81,11 +82,12 @@ extern int yydebug;
 #define EQUAL 262
 #define OY 263
 #define PRINT 264
-#define OPENC 265
-#define CLOSEC 266
-#define NUMBER 267
-#define VAR 268
-#define VARIABLE 269
+#define NEXT 265
+#define OPENC 266
+#define CLOSEC 267
+#define NUMBER 268
+#define VAR 269
+#define VARIABLE 270
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -101,7 +103,7 @@ union YYSTYPE
     char variable[100];
     //struct list_var* first_list_var;
 
-#line 105 "y.tab.h"
+#line 107 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
