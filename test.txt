@@ -2,10 +2,9 @@
 >> A + x^4 # comment A + 12
 >> 12-10+(2z^3)
 >> x+6-(x^(2-2) + xxxxxx) 
-#!B = 777xxxxxxxxxx
->> 10^2^2
+ #!B = 777xxxxxxxxxx
 
-# A + 13 - 1
-
+>> x^2
+>> A + 13 - 1
 >> a-a
 

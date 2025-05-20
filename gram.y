@@ -324,26 +324,36 @@ b_poly* poly_power_poly(b_poly* firstP, b_poly* secondP){
 
 b_poly* full_poly_power_poly(b_poly* firstP, b_poly* secondP){
 
+
+    fprintf(report, ">>full_poly_power_poly function start\n");
+
     b_poly* thirdP = (b_poly*)malloc(sizeof(b_poly));
     init_poly(thirdP);
+    thirdP->var = firstP->var;
+
     int power = secondP->coef[0];
     int max_capacity = 0;
 
+    //printf("%d\n", firstP->coef[0]);
 
     if (firstP->coef[0] > 0){
-        thirdP->coef[0] = pow(firstP->coef[0], secondP->coef[0]);
+        thirdP->coef[0] = (int)pow(firstP->coef[0], secondP->coef[0]);
         thirdP->capacity = 1;
         max_capacity = 1;
         //printf("---\n");
     }
 
-    for (int i = 1; i < firstP->capacity; i++){
-        thirdP->coef[(int)pow(i, secondP->coef[0])] = pow(firstP->coef[i], secondP->coef[0]);
+    fprintf(report, "first step of function\n");
+    output_poly(thirdP);
+
+    printf("%d\n", firstP->capacity);
+    for (int i = 1; i <= firstP->capacity; i++){
+        thirdP->coef[i * secondP->coef[0]] = (int)pow(firstP->coef[i], secondP->coef[0]);
         //printf("---\n");
-        max_capacity = fmax(max_capacity, pow(i, secondP->coef[0]));
+        max_capacity = fmax(max_capacity, i * secondP->coef[0]);
 
     }
-    
+    thirdP->capacity = max_capacity;
     return thirdP;
 }
 
