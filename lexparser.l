@@ -1,5 +1,6 @@
 %{
 #include <stdio.h>
+#include <string.h>
 #include "y.tab.h"
 
 extern FILE* report;
@@ -38,7 +39,6 @@ int yyerror(const char* s);
 "("         return OPENC;
 ")"         return CLOSEC;
 "="         return EQUAL;
-"!"         return OY; 
 ">>"        return PRINT;       
 [ ]*             ;
 [\t]+              ;

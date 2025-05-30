@@ -59,16 +59,14 @@ extern int yydebug;
     MULTI = 260,                   /* MULTI  */
     POW = 261,                     /* POW  */
     EQUAL = 262,                   /* EQUAL  */
-    OY = 263,                      /* OY  */
-    PRINT = 264,                   /* PRINT  */
-    NEXT = 265,                    /* NEXT  */
-    FINISH = 266,                  /* FINISH  */
-    OPENC = 267,                   /* OPENC  */
-    CLOSEC = 268,                  /* CLOSEC  */
-    NUMBER = 269,                  /* NUMBER  */
-    VAR = 270,                     /* VAR  */
-    VARIABLE = 271,                /* VARIABLE  */
-    SIGN = 272                     /* SIGN  */
+    PRINT = 263,                   /* PRINT  */
+    NEXT = 264,                    /* NEXT  */
+    OPENC = 265,                   /* OPENC  */
+    CLOSEC = 266,                  /* CLOSEC  */
+    NUMBER = 267,                  /* NUMBER  */
+    VAR = 268,                     /* VAR  */
+    VARIABLE = 269,                /* VARIABLE  */
+    SIGN = 270                     /* SIGN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -82,22 +80,20 @@ extern int yydebug;
 #define MULTI 260
 #define POW 261
 #define EQUAL 262
-#define OY 263
-#define PRINT 264
-#define NEXT 265
-#define FINISH 266
-#define OPENC 267
-#define CLOSEC 268
-#define NUMBER 269
-#define VAR 270
-#define VARIABLE 271
-#define SIGN 272
+#define PRINT 263
+#define NEXT 264
+#define OPENC 265
+#define CLOSEC 266
+#define NUMBER 267
+#define VAR 268
+#define VARIABLE 269
+#define SIGN 270
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 66 "gram.y"
+#line 67 "gram.y"
 
     int number;
     int signal;
@@ -107,7 +103,7 @@ union YYSTYPE
     char variable[100];
     //struct list_var* first_list_var;
 
-#line 111 "y.tab.h"
+#line 107 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

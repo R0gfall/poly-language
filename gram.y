@@ -26,7 +26,8 @@ typedef struct buffer_polynom
         char var; 
         int priority;
         char name_var[100];
-        //int fb_sign;
+        //int fb_si
+        // sgn;
         
 }b_poly;
 
@@ -74,7 +75,7 @@ b_poly* search_polynom_in_list(char* variable);
 }
 
 
-%token PLUS MINUS MULTI POW EQUAL OY PRINT NEXT FINISH
+%token PLUS MINUS MULTI POW EQUAL PRINT NEXT
 
 %token OPENC CLOSEC      // ADD ( ) !
 
@@ -140,11 +141,11 @@ polynom:
 
             
 peremen:
-            OY VARIABLE EQUAL termmonom
+            VARIABLE EQUAL termmonom
             {
-                $$ = $4;
+                $$ = $3;
                 fprintf(report, ">>peremen: OY VARIABLE EQUAL termmonom: Find new peremen!\n");
-                add_new_element($2, $4);
+                add_new_element($1, $3);
             };
 
 termmonom:
@@ -166,15 +167,15 @@ termmonom:
                 //printf("-----\n");
                 //output_poly_to_file($2);
                 $$ = $2;
-                //($1 == "+") ? $$->fb_sign = 1 : $$->fb_sign = 2;
+                //($1 == "+") ? $$->fb_sign = 1 : $$->fb_sicgn = 2;
                 if ($1 == 2) {
                     fprintf(report, ">>termmonom: sign monom\n");
                     //printf("--%d\n", $2->capacity);
                     // $$->coef[$2->capacity - 1] = 0 - ($$->coef[$2->capacity - 1]);
-                    for (int i = 0; i < $2->capacity; i++){
+                    for (int i = 0; i <= $2->capacity; i++){
                         $$->coef[i] =  - ($$->coef[i]);
                     }
-                    fprintf(report, "sign coef = %d\n", $$->coef[$2->capacity - 1]);
+                    fprintf(report, "sign coef = %d\n", $$->coef[$2->capacity]);
                 }
             }
 
@@ -221,14 +222,15 @@ exprmonom:
                 //fprintf(report, "------\n");
                 //printf("aaaa\n");
                 if ($3->coef[0] < 0){
-                    
+                    //printf("----\n");
                     printf("ERROR: minus power number! line: %d\n", yylineno);
                     fprintf(report, "ERROR: exprmonom: expression POW exprmonom!\n >> Mines power! line: %d", yylineno);
                     exit(1);
                 }
 
-                if ($3->capacity == 1){
+                if ($3->capacity <= 1){
                     //printf("aaaa\n");
+                    //printf("----\n");
                     //fprintf(report, "------\n");
                     if ($1->capacity == 2){
                         //set_zero_poly($$);
@@ -277,10 +279,19 @@ expression:
 
             VARIABLE {
                 fprintf(report, ">>expression: VARIABLE find\n");
-                if (($$ = search_polynom_in_list($1)) == NULL){
+                
+                if ((search_polynom_in_list($1)) == NULL){
                     //printf("ERROR: Unidentified variable!\n");
+
+
                     break;
                 }
+                //$$ = init_poly(search_polynom_in_list($1));
+                $$ = (b_poly*)malloc(sizeof(b_poly));
+                *$$ = *search_polynom_in_list($1);
+                // memcpy($$, search_polynom_in_list($1), sizeof(b_poly));
+
+
             }
 
             | NUMBER {
@@ -368,11 +379,35 @@ b_poly* full_poly_power_poly(b_poly* firstP, b_poly* secondP){
     int power = secondP->coef[0];
     int max_capacity = 0;
 
+    if ((secondP->capacity <= 1) && (secondP->coef[0] == 0)){
+        thirdP->capacity = 1;
+        thirdP->coef[0] = 1;
+        //printf("-------\n");
+        return thirdP;
+    }
+
     //printf("%d\n", firstP->coef[0]);
 
     thirdP = firstP;
     for (int i = 1; i < power; i++){
         thirdP = multi_poly_to_poly(thirdP, firstP);
+        //printf("-------\n");
+        //printf("%d, %d\n", thirdP->capacity, firstP->capacity);
+        
+    }
+
+
+    for (int i = thirdP->capacity; i > 0; i--){
+        if (thirdP->coef[i] == 0){
+            thirdP->capacity = thirdP->capacity - 1;
+        }
+        else{
+            break;
+        }
+    }
+
+    if (thirdP->capacity == 0){
+        thirdP->capacity = 1;
     }
     return thirdP;
 
@@ -414,9 +449,14 @@ b_poly* add_poly_to_poly(b_poly* firstP, b_poly* secondP, int sign){
         secondP->var = firstP->var;
     }
 
+    
+
+
+
     if ((firstP->var != secondP->var)){
 
         printf("<<Error: gram.y: func add_p2p: different var! line: %d\n", yylineno);
+        
         fprintf(report, "<<Error: gram.y: func add_p2p: different var!\n");
         //return -1;
         exit(1);
@@ -449,6 +489,19 @@ b_poly* add_poly_to_poly(b_poly* firstP, b_poly* secondP, int sign){
         
         }
     }
+
+    for (int i = thirdP->capacity; i > 0; i--){
+        if (thirdP->coef[i] == 0){
+            thirdP->capacity = thirdP->capacity - 1;
+        }
+        else {
+            break;
+        }
+    }
+
+    if (thirdP->capacity == 0){
+        thirdP->capacity = 1;
+    }
     output_poly(thirdP);
     return thirdP;
 
@@ -457,18 +510,26 @@ b_poly* add_poly_to_poly(b_poly* firstP, b_poly* secondP, int sign){
 b_poly* multi_poly_to_poly(b_poly* firstP, b_poly* secondP){
     
     
+
+    //printf("%c , %c\n", firstP->var, secondP->var);
     if (firstP->var == ' '){
         firstP->var = secondP->var;
+        // printf("-----\n");
+        //printf("%c , %c\n", firstP->var, secondP->var);
     }
     else if (secondP->var == ' '){
         secondP->var = firstP->var;
+        // printf("---++++-\n");
     }
     
 
     if (firstP->var != secondP->var){
         
+        //printf("%c , %c\n", firstP->var, secondP->var);
+
         // add yyerror()
         printf("<<Error: gram.y: func add_p2p: different var! line: %d\n", yylineno);
+        
         fprintf(report, "<<Error: gram.y: func add_p2p: different var!\n");
         //return -1;
         exit(1);
@@ -510,6 +571,21 @@ b_poly* multi_poly_to_poly(b_poly* firstP, b_poly* secondP){
         
     }
 
+
+    for (int i = thirdP->capacity; i > 0; i--){
+        if (thirdP->coef[i] == 0){
+            thirdP->capacity = thirdP->capacity - 1;
+            //printf("%d, %d\n", thirdP->capacity, firstP->capacity);
+        }
+        else {
+            break;
+        }
+    }
+    //printf(">>%d, %d\n", thirdP->capacity, firstP->capacity);
+
+    if (thirdP->capacity == 0){
+        thirdP->capacity = 1;
+    }
     return thirdP;
     
 
@@ -568,6 +644,8 @@ void output_poly_to_file(b_poly* firstP) {
     //printf(">>gram.y: FUNCTION output_poly start\n");
     
     
+
+    //printf("-=-=  %d\n", firstP->coef[firstP->capacity]);
     /* printf("===coef[0] %d  ", firstP->coef[0]);
     printf("===coef[1] %d\n", firstP->coef[1]);
     printf("===capacity %d\n", firstP->capacity); */
@@ -641,3 +719,5 @@ b_poly* search_polynom_in_list(char* variable)
     fprintf(report, "ERROR: Unidentified variable!\n");
     exit(1);
 }
+
+
